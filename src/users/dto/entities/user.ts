@@ -11,4 +11,11 @@ export class User {
         return this.email;
     }
 
+    setEmail(email: string) {
+        this.email = email;
+    }
+
+    setName(name: string) {
+        this.name = name;
+    }
 }

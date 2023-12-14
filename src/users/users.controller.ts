@@ -30,9 +30,15 @@ export class UsersController {
     return res.json(user);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @Patch(':email')
+  update(@Param('email') email: string, @Body() updateUserDto: UpdateUserDto, @Res() res: Response) {
+    const user = this.usersService.findOne(email);
+
+    if (!user) {
+      throw new NotFoundException('Usuário não encontrado')
+    }
+    this.usersService.update(email, updateUserDto)
+    return res.status(HttpStatus.NO_CONTENT).send()
   }
 
   @Delete(':id')
