@@ -6,16 +6,19 @@ import { User } from './dto/entities/user';
 @Injectable()
 export class UsersService {
   private readonly users: User[] = [];
+
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+    const newUser = new User(createUserDto.name, createUserDto.email);
+    this.users.push(newUser);
+    return newUser;
   }
 
   findAll() {
     return this.users;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(email: string) {
+    return this.users.find((user) => user.getEmail() === email);
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

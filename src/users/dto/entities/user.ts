@@ -5,4 +5,10 @@ export class User {
         this.name = name;
         this.email = email;
     }
+
+
+    getEmail(): string {
+        return this.email;
+    }
+
 }
