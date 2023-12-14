@@ -27,7 +27,8 @@ export class UsersService {
     user.setEmail(updateUserDto.email)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(email: string) {
+    const userIndex = this.users.findIndex((user) => user.getEmail() === email)
+    this.users.splice(userIndex, 1)
   }
 }

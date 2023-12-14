@@ -37,12 +37,20 @@ export class UsersController {
     if (!user) {
       throw new NotFoundException('Usuário não encontrado')
     }
+
     this.usersService.update(email, updateUserDto)
     return res.status(HttpStatus.NO_CONTENT).send()
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @Delete(':email')
+  remove(@Param('email') email: string, @Res() res: Response) {
+    const user = this.usersService.findOne(email);
+
+    if (!user) {
+      throw new NotFoundException('Usuário não encontrado')
+    }
+
+    this.usersService.remove(email);
+    return res.status(HttpStatus.NO_CONTENT).send()
   }
 }
